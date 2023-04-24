@@ -1,0 +1,238 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[      8756,        230]
+NotebookOptionsPosition[      5441,        157]
+NotebookOutlinePosition[      5972,        175]
+CellTagsIndexPosition[      5929,        172]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["Making Mermaid-JS diagrams", "GuideTitle",
+ CellID->436651031,ExpressionUUID->"6e737655-3c59-40b3-b56e-264e0285ea1e"],
+
+Cell["\<\
+Mermaid lets you create diagrams and visualizations using text and code.\
+\>", "GuideAbstract",
+ CellChangeTimes->{{3.8913411027251453`*^9, 3.891341104200222*^9}},
+ CellID->842256218,ExpressionUUID->"f0f05752-58b1-4be2-ba87-d5932b722432"],
+
+Cell["\<\
+Mermaid has different types of diagrams: Flowchart, Sequence Diagram, Class \
+Diagram, State Diagram, Entity Relationship Diagram, User Journey, Gantt, Pie \
+Chart, Requirement Diagram, and others. It is a JavaScript based diagramming \
+and charting tool that renders Markdown-inspired text definitions to create \
+and modify diagrams dynamically.\
+\>", "GuideAbstract",
+ CellChangeTimes->{3.891341112663012*^9},
+ CellID->578077665,ExpressionUUID->"2c488a3e-ede5-4ebd-b325-980a9a3af3e8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["", "GuideFunctionsSection",
+ CellID->1735538549,ExpressionUUID->"96c9c839-ff1e-41f2-89ea-be48fa94280d"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["MermaidInk",
+   BaseStyle->"Link",
+   ButtonData->"paclet:AntonAntonov/MermaidJS/ref/MermaidInk"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c40ac8e4-27e1-4161-a8df-4d4f38357a23",ExpressionUUID->
+  "2f569b42-6b7f-48c2-938e-e5684d7e12b6"],
+ " \[LongDash] get an image from a dedicated Web API"
+}], "GuideText",
+ CellChangeTimes->{{3.891341067891045*^9, 3.891341088911993*^9}, 
+   3.891341131044505*^9, {3.891341162737974*^9, 3.8913411627379913`*^9}},
+ CellID->2073499489,ExpressionUUID->"cfbe9747-9b5d-426b-b70c-5e86476d3d43"],
+
+Cell[TextData[{
+ Cell[BoxData[
+  ButtonBox["MermaidJS",
+   BaseStyle->"Link",
+   ButtonData->"paclet:AntonAntonov/MermaidJS/ref/MermaidJS"]], 
+  "InlineGuideFunction",
+  TaggingRules->{"PageType" -> "Function"},
+  CellTags->"c5c6736a-1ff4-4e4e-8fcf-2d9846cbae62",ExpressionUUID->
+  "f09dcca7-ac46-44e2-8ad7-bbb80c7f0652"],
+ " \[LongDash] get an image from a local shell program"
+}], "GuideText",
+ CellChangeTimes->{{3.8913411198178253`*^9, 3.891341165937722*^9}},
+ CellID->2088771754,ExpressionUUID->"fed9c694-6a1f-4ddd-bd91-3e51f4bcde12"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Tech Notes", "GuideTutorialsSection",
+ CellID->371632104,ExpressionUUID->"0dcd367e-d0de-4c19-8cb6-96c5e2fd1e32"],
+
+Cell["XXXX", "GuideTutorial",
+ CellID->1138326452,ExpressionUUID->"8178f6b4-ed83-40f1-8da6-40c7a172e956"],
+
+Cell["XXXX", "GuideTutorial",
+ CellID->2068351288,ExpressionUUID->"bb3c7a2b-c53a-4d92-9578-936bb1331a3c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["Related Guides", "GuideMoreAboutSection",
+ CellChangeTimes->{{3.8430423939366693`*^9, 3.843042395176153*^9}},
+ CellID->1462303427,ExpressionUUID->"07169a4e-c64f-48a4-971b-7072c7dfd8f1"],
+
+Cell["XXXX", "GuideMoreAbout",
+ CellID->1130841321,ExpressionUUID->"d3cca2c5-f2d3-4478-afdb-a5264c6cdea1"],
+
+Cell["XXXX", "GuideMoreAbout",
+ CellID->819806097,ExpressionUUID->"bd807b3c-1c5b-4dc6-a9d0-9a3ddce4dc16"]
+}, Open  ]],
+
+Cell["Related Links", "GuideRelatedLinksSection",
+ CellID->225993127,ExpressionUUID->"234cac43-06fb-4045-81c5-fb06838c0195"],
+
+Cell[CellGroupData[{
+
+Cell["Metadata", "MetadataSection",
+ CellID->1515397593,ExpressionUUID->"b04a076e-292c-42cb-b995-e333f32d168b"],
+
+Cell[TextData[{
+ "New in: ",
+ Cell["1.0.0", "HistoryData",
+  CellTags->"New",ExpressionUUID->"a68289b1-77c2-4750-95cf-91574f8b35de"],
+ " | Modified in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Modified",ExpressionUUID->"d19f0530-2d37-4d41-826f-13a2131d659a"],
+ " | Obsolete in: ",
+ Cell[" ", "HistoryData",
+  CellTags->"Obsolete",ExpressionUUID->
+  "6a710cad-b485-4717-963b-0cc446bf4a22"]
+}], "History",
+ CellChangeTimes->{{3.8913411543333197`*^9, 3.891341155333095*^9}},
+ CellID->131292131,ExpressionUUID->"7ca1828a-20dd-45a1-9e83-b7746d79a955"],
+
+Cell[CellGroupData[{
+
+Cell["Categorization", "CategorizationSection",
+ CellID->1161140248,ExpressionUUID->"e96e7cf2-efdd-4a1f-b29b-f917cfdd0927"],
+
+Cell["Guide", "Categorization",
+ CellLabel->"Entity Type",
+ CellID->1100247847,ExpressionUUID->"58dd520f-eb3d-409f-9e8b-b0d42befa18a"],
+
+Cell["AntonAntonov/MermaidJS", "Categorization",
+ CellLabel->"Paclet Name",
+ CellID->2031363859,ExpressionUUID->"452cb6d6-18d4-4c97-9c42-7ccc7df9f530"],
+
+Cell["AntonAntonov`MermaidJS`", "Categorization",
+ CellLabel->"Context",
+ CellID->437358207,ExpressionUUID->"bdc00fea-d00b-483f-906f-f7095df16d7b"],
+
+Cell["AntonAntonov/MermaidJS/guide/MakingMermaid-JSdiagrams", "Categorization",
+ CellLabel->"URI",
+ CellID->1990345015,ExpressionUUID->"6ee32e91-bb02-4c8f-9827-fc5471b6928e"]
+}, Closed]],
+
+Cell[CellGroupData[{
+
+Cell["Keywords", "KeywordsSection",
+ CellID->375897786,ExpressionUUID->"289d57a5-e595-40cd-a5f7-12391fb28c52"],
+
+Cell["XXXX", "Keywords",
+ CellID->1964683475,ExpressionUUID->"68f7add2-3768-4ec3-bb70-d3cf4690680b"]
+}, Closed]]
+}, Open  ]]
+},
+WindowSize->{700, 770},
+WindowMargins->{{1316, Automatic}, {Automatic, 238}},
+TaggingRules-><|"Paclet" -> "AntonAntonov/MermaidJS"|>,
+FrontEndVersion->"13.2 for Mac OS X ARM (64-bit) (January 30, 2023)",
+StyleDefinitions->FrontEnd`FileName[{"Wolfram"}, "GuidePageStylesExt.nb", 
+  CharacterEncoding -> "UTF-8"],
+ExpressionUUID->"a64cc539-efd3-490d-bae7-3cf3c61ad272"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[580, 22, 123, 1, 88, "GuideTitle",ExpressionUUID->"6e737655-3c59-40b3-b56e-264e0285ea1e",
+ CellID->436651031],
+Cell[706, 25, 248, 4, 29, "GuideAbstract",ExpressionUUID->"f0f05752-58b1-4be2-ba87-d5932b722432",
+ CellID->842256218],
+Cell[957, 31, 497, 8, 83, "GuideAbstract",ExpressionUUID->"2c488a3e-ede5-4ebd-b325-980a9a3af3e8",
+ CellID->578077665]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1491, 44, 109, 1, 72, "GuideFunctionsSection",ExpressionUUID->"96c9c839-ff1e-41f2-89ea-be48fa94280d",
+ CellID->1735538549],
+Cell[1603, 47, 611, 13, 27, "GuideText",ExpressionUUID->"cfbe9747-9b5d-426b-b70c-5e86476d3d43",
+ CellID->2073499489],
+Cell[2217, 62, 539, 12, 27, "GuideText",ExpressionUUID->"fed9c694-6a1f-4ddd-bd91-3e51f4bcde12",
+ CellID->2088771754]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[2793, 79, 118, 1, 74, "GuideTutorialsSection",ExpressionUUID->"0dcd367e-d0de-4c19-8cb6-96c5e2fd1e32",
+ CellID->371632104],
+Cell[2914, 82, 105, 1, 24, "GuideTutorial",ExpressionUUID->"8178f6b4-ed83-40f1-8da6-40c7a172e956",
+ CellID->1138326452],
+Cell[3022, 85, 105, 1, 24, "GuideTutorial",ExpressionUUID->"bb3c7a2b-c53a-4d92-9578-936bb1331a3c",
+ CellID->2068351288]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[3164, 91, 191, 2, 74, "GuideMoreAboutSection",ExpressionUUID->"07169a4e-c64f-48a4-971b-7072c7dfd8f1",
+ CellID->1462303427],
+Cell[3358, 95, 106, 1, 24, "GuideMoreAbout",ExpressionUUID->"d3cca2c5-f2d3-4478-afdb-a5264c6cdea1",
+ CellID->1130841321],
+Cell[3467, 98, 105, 1, 24, "GuideMoreAbout",ExpressionUUID->"bd807b3c-1c5b-4dc6-a9d0-9a3ddce4dc16",
+ CellID->819806097]
+}, Open  ]],
+Cell[3587, 102, 124, 1, 74, "GuideRelatedLinksSection",ExpressionUUID->"234cac43-06fb-4045-81c5-fb06838c0195",
+ CellID->225993127],
+Cell[CellGroupData[{
+Cell[3736, 107, 111, 1, 72, "MetadataSection",ExpressionUUID->"b04a076e-292c-42cb-b995-e333f32d168b",
+ CellID->1515397593],
+Cell[3850, 110, 547, 13, 26, "History",ExpressionUUID->"7ca1828a-20dd-45a1-9e83-b7746d79a955",
+ CellID->131292131],
+Cell[CellGroupData[{
+Cell[4422, 127, 123, 1, 21, "CategorizationSection",ExpressionUUID->"e96e7cf2-efdd-4a1f-b29b-f917cfdd0927",
+ CellID->1161140248],
+Cell[4548, 130, 134, 2, 70, "Categorization",ExpressionUUID->"58dd520f-eb3d-409f-9e8b-b0d42befa18a",
+ CellID->1100247847],
+Cell[4685, 134, 151, 2, 70, "Categorization",ExpressionUUID->"452cb6d6-18d4-4c97-9c42-7ccc7df9f530",
+ CellID->2031363859],
+Cell[4839, 138, 147, 2, 70, "Categorization",ExpressionUUID->"bdc00fea-d00b-483f-906f-f7095df16d7b",
+ CellID->437358207],
+Cell[4989, 142, 174, 2, 70, "Categorization",ExpressionUUID->"6ee32e91-bb02-4c8f-9827-fc5471b6928e",
+ CellID->1990345015]
+}, Closed]],
+Cell[CellGroupData[{
+Cell[5200, 149, 110, 1, 21, "KeywordsSection",ExpressionUUID->"289d57a5-e595-40cd-a5f7-12391fb28c52",
+ CellID->375897786],
+Cell[5313, 152, 100, 1, 70, "Keywords",ExpressionUUID->"68f7add2-3768-4ec3-bb70-d3cf4690680b",
+ CellID->1964683475]
+}, Closed]]
+}, Open  ]]
+}
+]
+*)
+
