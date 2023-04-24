@@ -5,7 +5,7 @@ PacletObject[
     "Name" -> "AntonAntonov/MermaidJS",
     "Description" -> "Graphics and images corresponding to mermaid-js specifications",
     "Creator" -> "Anton Antonov",
-    "Version" -> "1.0.1",
+    "Version" -> "1.0.2",
     "WolframVersion" -> "12.0+",
     "PublisherID" -> "AntonAntonov",
     "License" -> "MIT",
