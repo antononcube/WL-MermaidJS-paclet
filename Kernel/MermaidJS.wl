@@ -47,7 +47,7 @@ GetShellSession[] :=
 MermaidJS[mSpec_String, typeArg : (_String | Automatic),
   opts : OptionsPattern[]] :=
     Block[{type = typeArg, res, fname, command, mmdOpts, sessionProlog,
-      shellSession},
+      shellSession, in},
 
       mmdOpts = OptionValue[MermaidJS, "MermaidOptions"];
       If[! StringQ[mmdOpts],
@@ -84,12 +84,12 @@ MermaidJS[mSpec_String, typeArg : (_String | Automatic),
       ];
       If[TrueQ[shellSession === Automatic], shellSession = GetShellSession[]];
 
-      fname = "/tmp/mmdc-out." <> type;
-      command =
-          "cat << EOF | mmdc -o " <> fname <> " " <> mmdOpts <> "\n" <> mSpec <> "\nEOF";
+      in = FileNameJoin[{$TemporaryDirectory, "mmdc-in.mmd"}]; 
+      Export[in, mSpec, "String", CharacterEncoding -> "UTF-8"]; 
 
-      res = ExternalEvaluate[<|"System" -> shellSession,
-        "Prolog" -> sessionProlog|>, command];
+      fname = FileNameJoin[{$TemporaryDirectory, "mmdc-out." <> type}];
+      command = "mmdc -i " <> in <> " -o " <> fname <> " " <> mmdOpts; 
+      res = ExternalEvaluate[<|"System" -> shellSession|>, command]; 
       (*res=ExternalEvaluate[shellSession,command];*)
 
       Which[
