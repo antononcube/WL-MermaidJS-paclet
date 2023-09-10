@@ -84,13 +84,24 @@ MermaidJS[mSpec_String, typeArg : (_String | Automatic),
       ];
       If[TrueQ[shellSession === Automatic], shellSession = GetShellSession[]];
 
-      in = FileNameJoin[{$TemporaryDirectory, "mmdc-in.mmd"}]; 
-      Export[in, mSpec, "String", CharacterEncoding -> "UTF-8"]; 
+      Which[
+        $OperatingSystem == "Windows",
+        in = FileNameJoin[{$TemporaryDirectory, "mmdc-in.mmd"}];
+        Export[in, mSpec, "String", CharacterEncoding -> "UTF-8"];
 
-      fname = FileNameJoin[{$TemporaryDirectory, "mmdc-out." <> type}];
-      command = "mmdc -i " <> in <> " -o " <> fname <> " " <> mmdOpts; 
-      res = ExternalEvaluate[<|"System" -> shellSession|>, command]; 
-      (*res=ExternalEvaluate[shellSession,command];*)
+        fname = FileNameJoin[{$TemporaryDirectory, "mmdc-out." <> type}];
+        command = "mmdc -i " <> in <> " -o " <> fname <> " " <> mmdOpts;
+        res = ExternalEvaluate[<|"System" -> shellSession|>, command],
+
+        True,
+        (* Tested on macOS; should work on Linux too. *)
+        (*fname = "/tmp/mmdc-out." <> type;*)
+        fname = FileNameJoin[{$TemporaryDirectory, "mmdc-out." <> type}];
+        command =
+            "cat << EOF | mmdc -o " <> fname <> " -q -i - " <> mmdOpts <> "\n" <> mSpec <> "\nEOF";
+
+        res = ExternalEvaluate[<|"System" -> shellSession, "Prolog" -> sessionProlog|>, command];
+      ];
 
       Which[
         type == "pdf",
