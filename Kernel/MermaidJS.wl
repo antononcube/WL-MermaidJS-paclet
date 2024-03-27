@@ -41,7 +41,7 @@ MermaidJS::nss =
 
 Options[MermaidJS] =
     Join[{"MermaidOptions" -> "--pdfFit", "MermaidDirectives" -> "TD", "DropMarkdownFences" -> True,
-      "ShellSession" -> Automatic, "Prolog" -> "source ~/.zshrc"},
+      "ShellSession" -> Automatic, "SessionProlog" -> "source ~/.zshrc"},
       Options[Graphics]];
 
 MermaidJS[mSpec : (_String | _Graph), opts : OptionsPattern[]] :=
@@ -76,7 +76,7 @@ MermaidJS[mSpecArg_String, typeArg : (_String | Automatic), opts : OptionsPatter
         type = "pdf"
       ];
 
-      sessionProlog = OptionValue[MermaidJS, "Prolog"];
+      sessionProlog = OptionValue[MermaidJS, "SessionProlog"];
       If[! StringQ[sessionProlog],
         ResourceFunction["ResourceFunctionMessage"][MermaidJS::nsp];
         sessionProlog = "";
@@ -111,7 +111,7 @@ MermaidJS[mSpecArg_String, typeArg : (_String | Automatic), opts : OptionsPatter
         command =
             "cat << EOF | mmdc -o " <> fname <> " -q -i - " <> mmdOpts <> "\n" <> mSpec <> "\nEOF";
 
-        res = ExternalEvaluate[<|"System" -> shellSession, "Prolog" -> sessionProlog|>, command];
+        res = ExternalEvaluate[<|"System" -> shellSession, "SessionProlog" -> sessionProlog|>, command];
       ];
 
       Which[
@@ -170,7 +170,7 @@ MermaidInk::args =
 MermaidInk::nmd =
     "The value of the option MermaidDirectives is expected to be a string.";
 
-Options[MermaidInk] = {"URL" -> "https://mermaid.ink/img", "MermaidDirectives" -> "TD"}
+Options[MermaidInk] = {"URL" -> "https://mermaid.ink/img", "MermaidDirectives" -> "TD", "DropMarkdownFences" -> True};
 
 MermaidInk[mSpecArg_String, opts : OptionsPattern[]] :=
     Block[{mSpec = mSpecArg, res, url},
