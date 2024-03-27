@@ -7,6 +7,14 @@ MermaidInk::usage = "Get an image corresponding to a Mermaid-js specification vi
 Begin["`Private`"];
 
 (*********************************************************)
+(* DropMarkdownFences                                    *)
+(*********************************************************)
+
+Clear[DropMarkdownFences];
+DropMarkdownFences[spec_String] :=
+    StringReplace[StringTrim[spec], {StartOfString ~~ "```mermaid", "```" ~~ EndOfString} -> ""];
+
+(*********************************************************)
 (* MermaidJS                                             *)
 (*********************************************************)
 Clear[MermaidJS];
@@ -32,7 +40,7 @@ MermaidJS::nss =
     "The value of the option ShellSession is expected to be a \"Shell\", Automatic, or ExternalSessionObject.";
 
 Options[MermaidJS] =
-    Join[{"MermaidOptions" -> "--pdfFit", "MermaidDirectives" -> "TD",
+    Join[{"MermaidOptions" -> "--pdfFit", "MermaidDirectives" -> "TD", "DropMarkdownFences" -> True,
       "ShellSession" -> Automatic, "Prolog" -> "source ~/.zshrc"},
       Options[Graphics]];
 
@@ -44,9 +52,8 @@ GetShellSession[] :=
     Block[{lsSS = Select[ExternalSessions[], #["System"] == "Shell" &]},
       If[Length[lsSS] == 0, "Shell", First[lsSS]]];
 
-MermaidJS[mSpec_String, typeArg : (_String | Automatic),
-  opts : OptionsPattern[]] :=
-    Block[{type = typeArg, res, fname, command, mmdOpts, sessionProlog,
+MermaidJS[mSpecArg_String, typeArg : (_String | Automatic), opts : OptionsPattern[]] :=
+    Block[{mSpec = mSpecArg, type = typeArg, res, fname, command, mmdOpts, sessionProlog,
       shellSession, in},
 
       mmdOpts = OptionValue[MermaidJS, "MermaidOptions"];
@@ -83,6 +90,10 @@ MermaidJS[mSpec_String, typeArg : (_String | Automatic),
         shellSession = "Shell"
       ];
       If[TrueQ[shellSession === Automatic], shellSession = GetShellSession[]];
+
+      If[TrueQ[OptionValue[MermaidJS, "DropMarkdownFences"]],
+        mSpec = DropMarkdownFences[mSpec]
+      ];
 
       Which[
         $OperatingSystem == "Windows",
@@ -161,8 +172,11 @@ MermaidInk::nmd =
 
 Options[MermaidInk] = {"URL" -> "https://mermaid.ink/img", "MermaidDirectives" -> "TD"}
 
-MermaidInk[mSpec_String, opts : OptionsPattern[]] :=
-    Block[{res, url},
+MermaidInk[mSpecArg_String, opts : OptionsPattern[]] :=
+    Block[{mSpec = mSpecArg, res, url},
+      If[TrueQ[OptionValue[MermaidInk, "DropMarkdownFences"]],
+        mSpec = DropMarkdownFences[mSpec]
+      ];
       url = OptionValue[MermaidInk, "URL"];
       res = ExportString[StringTrim[mSpec], "Base64"];
       Import[URLBuild[{url, res}]]
