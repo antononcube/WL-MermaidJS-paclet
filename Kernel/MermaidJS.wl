@@ -104,24 +104,11 @@ MermaidJS[mSpecArg_String, typeArg : (_String | Automatic), opts : OptionsPatter
         mSpec = DropMarkdownFences[mSpec]
       ];
 
-      Which[
-        $OperatingSystem == "Windows",
-        in = FileNameJoin[{$TemporaryDirectory, "mmdc-in.mmd"}];
-        Export[in, mSpec, "String", CharacterEncoding -> "UTF-8"];
-
-        fname = FileNameJoin[{$TemporaryDirectory, "mmdc-out." <> type}];
-        command = "mmdc -i " <> in <> " -o " <> fname <> " " <> mmdOpts;
-        res = ExternalEvaluate[<|"System" -> shellSession|>, command],
-
-        True,
-        (* Tested on macOS; should work on Linux too. *)
-        (*fname = "/tmp/mmdc-out." <> type;*)
-        fname = FileNameJoin[{$TemporaryDirectory, "mmdc-out." <> type}];
-        command =
-            "cat << EOF | mmdc -o " <> fname <> " -q -i - " <> mmdOpts <> "\n" <> mSpec <> "\nEOF";
-
-        res = ExternalEvaluate[<|"System" -> shellSession, "SessionProlog" -> sessionProlog|>, command];
-      ];
+      in = FileNameJoin[{$TemporaryDirectory, "mmdc-in.mmd"}];
+      Export[in, mSpec, "String", CharacterEncoding -> "UTF-8"];
+      fname = FileNameJoin[{$TemporaryDirectory, "mmdc-out." <> type}];
+      command = "mmdc -i " <> in <> " -o " <> fname <> " " <> mmdOpts;
+      res = ExternalEvaluate[<|"System" -> shellSession, "SessionProlog" -> sessionProlog|>, command];
 
       Which[
         type == "pdf",
