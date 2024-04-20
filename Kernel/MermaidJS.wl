@@ -36,14 +36,14 @@ MermaidJS::nmd =
     "The value of the option MermaidDirectives is expected to be a string.";
 
 MermaidJS::nsp =
-    "The value of the option SessionProlog is expected to be a string.";
+    "The value of the option SessionProlog is expected to be a string or Automatic.";
 
 MermaidJS::nss =
     "The value of the option ShellSession is expected to be a \"Shell\", Automatic, or ExternalSessionObject.";
 
 Options[MermaidJS] =
     Join[{"MermaidOptions" -> "--pdfFit", "MermaidDirectives" -> "TD", "DropMarkdownFences" -> True,
-      "ShellSession" -> Automatic, "SessionProlog" -> "source ~/.zshrc"},
+      "ShellSession" -> Automatic, "SessionProlog" -> Automatic},
       Options[Graphics]];
 
 MermaidJS[mSpec : (_String | _Graph), opts : OptionsPattern[]] :=
@@ -79,9 +79,16 @@ MermaidJS[mSpecArg_String, typeArg : (_String | Automatic), opts : OptionsPatter
       ];
 
       sessionProlog = OptionValue[MermaidJS, "SessionProlog"];
-      If[! StringQ[sessionProlog],
+      If[! StringQ[sessionProlog] && sessionProlog =!= Automatic,
         ResourceFunction["ResourceFunctionMessage"][MermaidJS::nsp];
-        sessionProlog = "";
+        Return[$Failed]
+      ];
+      sessionProlog = Which[
+        StringQ[sessionProlog], sessionProlog,
+        $OperatingSystem == "Windows", "",
+        Environment["SHELL"] == "/bin/bash", "source ~/.bashrc",
+        Environment["SHELL"] == "/bin/zsh" , "source ~/.zshrc",
+        True, ""
       ];
 
       shellSession = OptionValue[MermaidJS, "ShellSession"];
