@@ -1,3 +1,5 @@
+(* ::Package:: *)
+
 BeginPackage["AntonAntonov`MermaidJS`"];
 
 MermaidJS::usage = "Returns an image corresponding to a mermaid-js specification via the command line interface of mermaid-js";
