@@ -1,3 +1,5 @@
+(* ::Package:: *)
+
 BeginPackage["AntonAntonov`MermaidJS`"];
 
 MermaidJS::usage = "Returns an image corresponding to a mermaid-js specification via the command line interface of mermaid-js";
@@ -34,14 +36,14 @@ MermaidJS::nmd =
     "The value of the option MermaidDirectives is expected to be a string.";
 
 MermaidJS::nsp =
-    "The value of the option SessionProlog is expected to be a string.";
+    "The value of the option SessionProlog is expected to be a string or Automatic.";
 
 MermaidJS::nss =
     "The value of the option ShellSession is expected to be a \"Shell\", Automatic, or ExternalSessionObject.";
 
 Options[MermaidJS] =
     Join[{"MermaidOptions" -> "--pdfFit", "MermaidDirectives" -> "TD", "DropMarkdownFences" -> True,
-      "ShellSession" -> Automatic, "SessionProlog" -> "source ~/.zshrc"},
+      "ShellSession" -> Automatic, "SessionProlog" -> Automatic},
       Options[Graphics]];
 
 MermaidJS[mSpec : (_String | _Graph), opts : OptionsPattern[]] :=
@@ -77,9 +79,16 @@ MermaidJS[mSpecArg_String, typeArg : (_String | Automatic), opts : OptionsPatter
       ];
 
       sessionProlog = OptionValue[MermaidJS, "SessionProlog"];
-      If[! StringQ[sessionProlog],
+      If[! StringQ[sessionProlog] && sessionProlog =!= Automatic,
         ResourceFunction["ResourceFunctionMessage"][MermaidJS::nsp];
-        sessionProlog = "";
+        Return[$Failed]
+      ];
+      sessionProlog = Which[
+        StringQ[sessionProlog], sessionProlog,
+        $OperatingSystem == "Windows", "",
+        Environment["SHELL"] == "/bin/bash", "source ~/.bashrc",
+        Environment["SHELL"] == "/bin/zsh" , "source ~/.zshrc",
+        True, ""
       ];
 
       shellSession = OptionValue[MermaidJS, "ShellSession"];
@@ -95,24 +104,11 @@ MermaidJS[mSpecArg_String, typeArg : (_String | Automatic), opts : OptionsPatter
         mSpec = DropMarkdownFences[mSpec]
       ];
 
-      Which[
-        $OperatingSystem == "Windows",
-        in = FileNameJoin[{$TemporaryDirectory, "mmdc-in.mmd"}];
-        Export[in, mSpec, "String", CharacterEncoding -> "UTF-8"];
-
-        fname = FileNameJoin[{$TemporaryDirectory, "mmdc-out." <> type}];
-        command = "mmdc -i " <> in <> " -o " <> fname <> " " <> mmdOpts;
-        res = ExternalEvaluate[<|"System" -> shellSession|>, command],
-
-        True,
-        (* Tested on macOS; should work on Linux too. *)
-        (*fname = "/tmp/mmdc-out." <> type;*)
-        fname = FileNameJoin[{$TemporaryDirectory, "mmdc-out." <> type}];
-        command =
-            "cat << EOF | mmdc -o " <> fname <> " -q -i - " <> mmdOpts <> "\n" <> mSpec <> "\nEOF";
-
-        res = ExternalEvaluate[<|"System" -> shellSession, "SessionProlog" -> sessionProlog|>, command];
-      ];
+      in = FileNameJoin[{$TemporaryDirectory, "mmdc-in.mmd"}];
+      Export[in, mSpec, "String", CharacterEncoding -> "UTF-8"];
+      fname = FileNameJoin[{$TemporaryDirectory, "mmdc-out." <> type}];
+      command = "mmdc -q -i " <> in <> " -o " <> fname <> " " <> mmdOpts;
+      res = ExternalEvaluate[<|"System" -> shellSession, "SessionProlog" -> sessionProlog|>, command];
 
       Which[
         type == "pdf",
