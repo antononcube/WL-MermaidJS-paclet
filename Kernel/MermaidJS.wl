@@ -107,7 +107,7 @@ MermaidJS[mSpecArg_String, typeArg : (_String | Automatic), opts : OptionsPatter
       in = FileNameJoin[{$TemporaryDirectory, "mmdc-in.mmd"}];
       Export[in, mSpec, "String", CharacterEncoding -> "UTF-8"];
       fname = FileNameJoin[{$TemporaryDirectory, "mmdc-out." <> type}];
-      command = "mmdc -i " <> in <> " -o " <> fname <> " " <> mmdOpts;
+      command = "mmdc -q -i " <> in <> " -o " <> fname <> " " <> mmdOpts;
       res = ExternalEvaluate[<|"System" -> shellSession, "SessionProlog" -> sessionProlog|>, command];
 
       Which[
